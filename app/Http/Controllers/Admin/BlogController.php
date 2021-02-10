@@ -1,10 +1,10 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\blog;
+use App\Models\blog;
 use App\Http\Requests\BlogRequest;
+
 class BlogController extends Controller
 {
     /**

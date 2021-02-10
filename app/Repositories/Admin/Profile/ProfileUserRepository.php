@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories\Admin\Profile;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Illuminate\Support\Facades\Storage;

@@ -17,9 +17,11 @@ class MemberRole
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->level==UserType::MEMBER){
+        if (Auth::check() && Auth::user()->level == UserType::MEMBER){
+
             return $next($request);
         } else{
+            
             return redirect()->route('memberLogin');
     }
 }

@@ -44,9 +44,10 @@
                             <th scope="row"><?php echo $value['id'] ?></th>
                             <td><?php echo $value['name'] ?></td>
                             <td>
-                                <a href="{{ url('admin/country/update/' . $value['id']) }}">Edit</a>
+                                <a href="{{ route('country.update', $value['id']) }}">Edit</a>
                                 <form method="post">
-                                    <input type="hidden" value=<?php echo $value['id'] ?>>
+                                    @csrf
+                                    @method('DELETE')
                                 <input type='submit' name='delete' value='Delete'>
                                 </form>
                             </td>
@@ -60,7 +61,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-12">
-                <a href="{{ url('admin/country/add') }}" class="btn btn-success">Add Country</a>
+                <a href="{{ route('country.create') }}" class="btn btn-success">Add Country</a>
             </div>
             
     </form>

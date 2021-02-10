@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\Admin\Profile\ProfileUserInterface;
 use App\Repositories\Admin\Profile\ProfileUserRepository;
+use App\Repositories\Admin\Country\CountryInterface;
+use App\Repositories\Admin\Country\CountryRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -12,6 +14,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => ProfileUserInterface::class,
             'concrete' => ProfileUserRepository::class,
+        ],
+        [
+            'abstract' => CountryInterface::class,
+            'concrete' => CountryRepository::class,
         ],
     ];
 

@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Repositories\Admin\Profile\ProfileUserInterface;
-use App\User;
-use App\Countries;
-use Auth;
+use App\Models\Country;
 class ProfileController extends Controller
 {
     protected $profileUserInterface;
@@ -19,7 +16,7 @@ class ProfileController extends Controller
 
     public function index()
     {
-        $countries = countries::all()->toArray();
+        $countries = Country::all()->toArray();
 
         return view('admin.user.profile.edit',compact('countries'));
     }
