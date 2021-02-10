@@ -9,11 +9,12 @@
             <div class="card card-body">
                 <h4 class="card-title">Default Forms</h4>
                 <h5 class="card-subtitle"> All bootstrap element classies </h5>
-                <form class="form-horizontal m-t-30" method='post'>
-                @csrf
+                <form class="form-horizontal m-t-30" action="{{ route('country.update', $country->id) }}" method='post'>
+                    @csrf
+                    @method('PUT')
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" name='countryName'>
+                        <input type="text" class="form-control" name='name'>
                     </div>
                     <div class="form-group">
                         <div class="form-group">

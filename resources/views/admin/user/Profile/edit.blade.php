@@ -19,19 +19,8 @@
         </div>
     </div>
 </div>
-<!-- ============================================================== -->
-<!-- End Bread crumb and right sidebar toggle -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- Container fluid  -->
-<!-- ============================================================== -->
 <div class="container-fluid">
-    <!-- ============================================================== -->
-    <!-- Start Page Content -->
-    <!-- ============================================================== -->
-    <!-- Row -->
     <div class="row">
-        <!-- Column -->
         <div class="col-lg-4 col-xlg-3 col-md-5">
             <div class="card">
                 <div class="card-body">
@@ -65,8 +54,6 @@
                 </div>
             </div>
         </div>
-        <!-- Column -->
-        <!-- Column -->
         <div class="col-lg-8 col-xlg-9 col-md-7">
             <div class="card">
                 <div class="card-body">
@@ -128,10 +115,9 @@
                             <label class="col-sm-12">Select Country</label>
                             <div class="col-sm-12">
                                 <select class="form-control form-control-line" name= 'id_country'>
-                                <?php 
-                                        foreach($countries as $key=>$value){?>
-                                    <option value= "<?php echo $value['id']?>" <?php echo ($value['id']==Auth::user()->id_country)?'selected':' ' ?> ><?php echo $value['name'] ?></option>
-                                    <?php }?>
+                                @foreach($countries as $value)
+                                    <option value= "{{ $value->id }}" {{ ($value->id == Auth::user()->id_country) ? 'selected' : ''}}>{{ $value->name }}</option>
+                                @endforeach
                                 </select>
                             </div>
                         </div>
@@ -148,12 +134,7 @@
     </div>
 
 </div>
-<!-- ============================================================== -->
-<!-- End Container fluid  -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- footer -->
-<!-- ============================================================== -->
+
 <footer class="footer text-center">
     All Rights Reserved by Nice admin. Designed and Developed by
     <a href="https://wrappixel.com">WrapPixel</a>.

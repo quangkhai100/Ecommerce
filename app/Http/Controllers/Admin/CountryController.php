@@ -19,6 +19,7 @@ class CountryController extends Controller
     public function index()
     {
         $countries = $this->countryInterface->paginate(config('pagesnumber.pages_number'));
+
         return view("admin.user.country.index",compact('countries'));
     }
 
@@ -29,7 +30,7 @@ class CountryController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->only('countryName');
+        $data = $request->only('name');
 
         if ($this->countryInterface->create($data)){
 
@@ -45,22 +46,24 @@ class CountryController extends Controller
     }
 
    
-    public function update(Request $request, $id)
+    public function update(Request $request, Country $country)
     {
+        $data = $request->only('name');
 
-        $countries = Country::find($id);
-        $countries->name=$request->countryName;
-        $countries->save();
-        return view('admin/user/update');
+        if ($this->countryInterface->update($data, $country->id)) {
 
+            return redirect()->back()->with('success', 'Update Succeed');
+        }
+        return redirect()->back()->withErrors('Update Failed');
     }
 
     
-    public function destroy(Request $request)
+    public function destroy(Country $country)
     {
-        Country::where('id',$request->id)->delete();
-        $countries = countries::all()->toArray();
-        return view("admin/user/country",compact('countries'));
+        if ($this->countryInterface->delete($country->id)){
 
+            return redirect(route('country.index'));
+        }
+            return redirect()->back()->withErrors('Update Failed');
     }
 }

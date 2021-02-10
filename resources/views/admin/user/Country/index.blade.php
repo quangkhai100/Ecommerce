@@ -37,23 +37,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
-                    <?php 
-                    foreach($countries as $key=>$value){?>
+                    @foreach($countries as $value)
                         <tr>
-                            <th scope="row"><?php echo $value['id'] ?></th>
-                            <td><?php echo $value['name'] ?></td>
+                            <th scope="row">{{ $value->id }}</th>
+                            <td>{{ $value->name }}</td>
                             <td>
-                                <a href="{{ route('country.update', $value['id']) }}">Edit</a>
-                                <form method="post">
+                                <a href="{{ route('country.edit',  $value->id) }}">Edit</a>
+                                <form action="{{ route('country.destroy', $value->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                 <input type='submit' name='delete' value='Delete'>
                                 </form>
                             </td>
                         </tr>
-                    <?php }?>
-
+                    @endforeach                     
                     </tbody>
                 </table>
             </div>
@@ -66,23 +63,7 @@
             
     </form>
     </div>
-    <!-- ============================================================== -->
-    <!-- End Container fluid  -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- footer -->
-    <!-- ============================================================== -->
-    <footer class="footer text-center">
-        All Rights Reserved by Nice admin. Designed and Developed by
-        <a href="https://wrappixel.com">WrapPixel</a>.
-    </footer>
-    <!-- ============================================================== -->
-    <!-- End footer -->
-    <!-- ============================================================== -->
 </div>
-<!-- ============================================================== -->
-<!-- End Page wrapper  -->
-<!-- ============================================================== -->
 </div>
 <style>
     .pagination {
