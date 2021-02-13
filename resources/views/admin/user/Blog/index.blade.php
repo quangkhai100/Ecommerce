@@ -47,7 +47,7 @@
                             <td><?php echo $value['image'] ?></td>
                             <td><?php echo $value['description'] ?></td>
                             <td>
-                                <a href="{{ url('admin/blog/update/' . $value['id']) }}">Edit</a>
+                                <a href="{{ route('blog.edit', $value['id']) }}">Edit</a>
                                 <form method="post">
                                 @csrf
                                 <input type="hidden" value=<?php echo $value['id'] ?> name='blogDelete'>
