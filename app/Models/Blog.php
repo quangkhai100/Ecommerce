@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Blog extends Model
 {
@@ -14,4 +15,12 @@ class Blog extends Model
         return $this->hasMany('App\CommentBlog', 'blog_id');
     }
 
+    public function getImageURLattribute()
+    {
+        return isset($this->image) ? asset('storage/' . $this->image) : null;
+    }
+    // public function getImageattribute($value)
+    // {
+    //     return isset($value) ? asset('storage/' . $value) : null;
+    // }
 }

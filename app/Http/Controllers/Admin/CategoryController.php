@@ -5,103 +5,62 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Repositories\Admin\Category\CategoryInterface;
 
 class CategoryController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $categoryInterface;
+
+    public function __construct(CategoryInterface $categoryInterface)
     {
-        $this->middleware('auth');
+        $this->categoryInterface = $categoryInterface;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $category = category::paginate(5);
-        return view("admin.user.category.index",compact('category'));
+        $category = $this->categoryInterface->paginate(config('pagesnumber.pages_number'));
+        return view("admin.user.category.index", compact('category'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-      
-
-       return view('admin.user.category.create');
+        return view('admin.user.category.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-       $category = new category();
-       $category->name = $request->categoryName;
-       $category->save();
-       return redirect()->back();  
+        $data = $request->only('name');
+        if ($this->categoryInterface->create($data)) {
+
+            return redirect()->back()->with('successed', 'created success');
+        }
+        return redirect()->back()->with('failed', 'created fail');    
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function edit(Category $category)
     {
-        //
+        return view('admin.user.category.edit',compact('category'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function update(Request $request, Category $category)
     {
-        return view('admin.user.category.edit');
+        $data = $request->only('name');
+
+        if ($this->categoryInterface->update($data, $category->id)) {
+
+            return redirect()->back()->with('success', 'Update Succeed');
+        }
+
+        return redirect()->back()->withErrors('Update Failed');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function destroy(Category $category)
     {
-        $category = category::find($id);
-        $category->name=$request->categoryName;
-        $category->save();
-        return redirect()->back();  
-    }
+        if ($this->categoryInterface->delete($category->id)){
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request)
-    {
-        category::where('id',$request->id)->delete();
-        return redirect()->back();  
+            return redirect(route('category.index'));
+        }
 
+        return redirect()->back()->withErrors('Delete Failed');
     }
 }

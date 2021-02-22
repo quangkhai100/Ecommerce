@@ -39,23 +39,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php 
-                    foreach($blog as $key=>$value){?>
+                    @foreach($blog as $value)
                         <tr>
-                            <th scope="row"><?php echo $value['id'] ?></th>
-                            <td><?php echo $value['title'] ?></td>
-                            <td><?php echo $value['image'] ?></td>
-                            <td><?php echo $value['description'] ?></td>
+                            <th scope="row">{{$value->id}}</th>
+                            <td>{{$value->title}}</td>
+                            <td><img  src="{{$value->image_url}}" style="height:35px; width:35px"></td>
+                            <td>{{$value->description}}</td>
                             <td>
-                                <a href="{{ route('blog.edit', $value['id']) }}">Edit</a>
-                                <form method="post">
-                                @csrf
-                                <input type="hidden" value=<?php echo $value['id'] ?> name='blogDelete'>
-                                <input type='submit' name='delete' value='Delete'>
+                                <a href="{{ route('blog.edit', $value->id) }}">Edit</a>
+                                <form action="{{ route('blog.destroy', $value->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type='submit' name='delete' value='Delete'>
                                 </form>
                             </td>
                         </tr>
-                    <?php }?>
+                    @endforeach
                     </tbody>
                 </table>
                 <div class="pagination">
@@ -69,7 +68,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-12">
-                <a href="{{ url('admin/blog/add') }}" class="btn btn-success">Add Blog</a>
+                <a href="{{ route('blog.create') }}" class="btn btn-success">Add Blog</a>
             </div>
     </form>
     </div>

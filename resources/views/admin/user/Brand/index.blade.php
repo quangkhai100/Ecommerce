@@ -37,40 +37,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php 
-                    foreach($brand as $key=>$value){?>
+                    @foreach($brand as $value)
                         <tr>
-                            <th scope="row"><?php echo $value['id'] ?></th>
-                            <td><?php echo $value['name'] ?></td>
+                            <th scope="row">{{$value->id}}</th>
+                            <td>{{$value->name}}</td>
                             <td>
-                                <a href="{{ url('admin/brand/update/' . $value['id']) }}">Edit</a>
-                                <form method="post">
+                                <a href="{{ route('brand.edit',  $value->id) }}">Edit</a>
+                                <form action="{{ route('brand.destroy', $value->id) }}" method="post">
                                     @csrf
-                                    <input type="hidden" name= 'id' value=<?php echo $value['id'] ?>>
+                                    @method('DELETE')
                                     <input type='submit' name='delete' value='Delete'>
                                 </form>
                             </td>
                         </tr>
-                    <?php }?>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
             {{ $brand->links() }}
-
         </div>
         <div class="form-group">
             <div class="col-sm-12">
-                <a href="{{url('admin/brand/add')}}" class="btn btn-success">Add Brand</a>
+                <a href="{{route('brand.create')}}" class="btn btn-success">Add Brand</a>
             </div>
             
     </form>
     </div>
-    <!-- ============================================================== -->
-    <!-- End Container fluid  -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- footer -->
-    <!-- ============================================================== -->
     <footer class="footer text-center">
         All Rights Reserved by Nice admin. Designed and Developed by
         <a href="https://wrappixel.com">WrapPixel</a>.

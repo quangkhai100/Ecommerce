@@ -37,21 +37,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php 
-                    foreach($category as $key=>$value){?>
+                    @foreach($category as $value)
                         <tr>
-                            <th scope="row"><?php echo $value['id'] ?></th>
-                            <td><?php echo $value['name'] ?></td>
+                            <th scope="row">{{$value->id}}</th>
+                            <td>{{$value->name}}</td>
                             <td>
-                                <a href="{{ url('admin/category/update/' . $value['id']) }}">Edit</a>
-                                <form method="post">
+                                <a href="{{ route('category.edit',  $value->id) }}">Edit</a>
+                                <form action="{{ route('category.destroy', $value->id) }}" method="post">
                                     @csrf
-                                    <input type="hidden" name= 'id' value=<?php echo $value['id'] ?>>
+                                    @method('DELETE')
                                     <input type='submit' name='delete' value='Delete'>
                                 </form>
                             </td>
                         </tr>
-                    <?php }?>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -59,7 +58,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-12">
-                <a href="{{url('admin/category/add')}}" class="btn btn-success">Add Category</a>
+                <a href="{{route('category.create')}}" class="btn btn-success">Add Category</a>
             </div>
             
     </form>

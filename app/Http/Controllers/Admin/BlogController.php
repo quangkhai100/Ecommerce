@@ -4,121 +4,66 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\blog;
 use App\Http\Requests\BlogRequest;
+use App\Repositories\Admin\Blog\BlogInterface;
 
 class BlogController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $blogInterface;
+    public function __construct(BlogInterface $blogInterface)
     {
-        $this->middleware('auth');
+        $this->blogInterface = $blogInterface;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        
-        $blog = blog::all()->toArray();
-        return view("admin.user.blog.index",compact('blog'));}
+        $blog = $this->blogInterface->paginate(config('pagesnumber.pages_number'));
+        return view("admin.user.blog.index",compact('blog'));
+    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         return view('admin.user.blog.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(BlogRequest $request)
     {
-        blog::all();
-        $blog = new blog();
-        $blog->title = $request->titleBlog;
-        $file1 = $request->image;
-        //check avatar
-        if(!empty($file1)){
-            $file1->move('avatar/img',$file1->getClientOriginalName());
-            $blog->image=$file1->getClientOriginalName();
-        }
-        $blog->description = $request->descriptionBlog;
-        $blog->content=$request->ContentBlog;
-        $blog->save();
-        // DB::table('countries')->insert(['name'=>$request->countryName]);
-        return redirect()->back()->withErrors('Add Successfully,'); 
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
+        $data= $request->all();
         
-    }
+        if( $this->blogInterface->createBlog($data)){
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        return view('admin.user.blog.edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(BlogRequest $request, $id)
-    {
-        $blog = blog::find($id);
-        $blog->title=$request->titleBlog;
-        $file = $request->image;
-         //check avatar
-         if(!empty($file)){
-            $file->move('avatar/img',$file->getClientOriginalName());
-            $blog->image=$file->getClientOriginalName();
+            return redirect()->back()->with('successed', 'created success');
         }
-        $blog->description = $request->descriptionBlog;
-        $blog->content=$request->ContentBlog;
-        $blog->save();
-        return view('admin/user/update');
+
+        return redirect()->back()->with('failed', 'created fail');    
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request)
+    public function edit(Blog $blog)
     {
-        blog::where('id',$request->blogDelete)->delete();
-        $blog = blog::all()->toArray();
-        return view("admin/user/blog",compact('blog'));
+        return view('admin.user.blog.edit',compact('blog'));
+    }
 
+    public function update(BlogRequest $request, Blog $blog)
+    {
+        $data= $request->all();
+        
+        if( $this->blogInterface->updateBlog($data, $blog->id)){
+
+            return redirect()->back()->with('successed', 'update success');
+        }
+
+        return redirect()->back()->with('failed', 'update fail');    
+
+    }
+
+    public function destroy(Blog $blog)
+    {
+        if ($this->blogInterface->delete($blog->id)){
+
+            return redirect(route('blog.index'));
+        }
+
+        return redirect()->back()->withErrors('Delete Failed');
     }
 }

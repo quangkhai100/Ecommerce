@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Brand extends Model
 {
     protected $table = 'brand';
+    protected $fillable = [
+        'name'
+    ];
     public $timestamps= true;
 }

@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 use App\Blog;
 use App\RateBlog;
 use App\CommentBlog;
-use App\User;
-use Illuminate\Support\Facades\DB;
+
 class BlogController extends Controller
 {
     /**

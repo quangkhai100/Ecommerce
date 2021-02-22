@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\BlogController ;
+use App\Http\Controllers\Api\CountryController ;
+use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +21,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group([
-    'namespace' => 'Api',
-],function () {
-Route::apiResource('blog','BlogController');
-});
+//api register
+Route::post('register', [RegisterController::class, 'register']);
+//login--create token
+Route::post('login',[LoginController::class,'login']);
+//list country
+Route::get('country',[CountryController::class,'index']);
+//refresh token
+Route::post('refresh-token',[LoginController::class,'refreshToken']);
+//delete token
+Route::delete('delete-token',[LoginController::class,'deleteToken']);

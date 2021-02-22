@@ -12,7 +12,6 @@ class CountryController extends Controller
 
     public function __construct(CountryInterface $countryInterface)
     {
-        $this->middleware('auth');
         $this->countryInterface = $countryInterface;
     }
 

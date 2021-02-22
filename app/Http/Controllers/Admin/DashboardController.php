@@ -9,5 +9,4 @@ class DashboardController extends Controller
     {
         return view('admin.user.Dashboard.index');
     }
-
 }
