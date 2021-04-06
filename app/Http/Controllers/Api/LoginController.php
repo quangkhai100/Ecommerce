@@ -87,7 +87,7 @@ class LoginController extends Controller
         } else {
             return response()->json([
                 'code' => "401",
-                'message' => 'delete token failed'
+                'message' => 'delete token failed ko duoc roi'
             ], 401);
         }
     }

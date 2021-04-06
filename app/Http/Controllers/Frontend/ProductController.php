@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Brand;
-use App\Category;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Http\Requests\ProductRequest;
 use App\Products;
 use Intervention\Image\ImageManagerStatic as Image;

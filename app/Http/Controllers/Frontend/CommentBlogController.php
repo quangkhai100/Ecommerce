@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\CommentBlog;
+use App\Models\CommentBlog;
 class CommentBlogController extends Controller
 {
     /**

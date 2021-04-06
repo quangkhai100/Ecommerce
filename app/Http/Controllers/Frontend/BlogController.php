@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Blog;
+use App\Models\Blog;
 use App\RateBlog;
 use App\CommentBlog;
 

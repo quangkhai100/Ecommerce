@@ -9,5 +9,4 @@ class CountryRepository extends BaseRepository implements CountryInterface
     public function model(){
         return Country::class;
     }
-
 }

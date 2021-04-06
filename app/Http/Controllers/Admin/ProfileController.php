@@ -37,14 +37,4 @@ class ProfileController extends Controller
         return redirect()->back()->withErrors('Update profile error,'); 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

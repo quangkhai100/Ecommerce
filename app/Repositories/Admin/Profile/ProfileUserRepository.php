@@ -20,7 +20,7 @@ class ProfileUserRepository extends BaseRepository implements ProfileUserInterfa
         if(isset($data['avatar'])){
             $fileName = Str::uuid() . '.' . $data['avatar']->getClientOriginalExtension();
             Storage::disk('local')->put($fileName, file_get_contents($data['avatar']), 'public');
-            $data['avatar'] = $fileName;;
+            $data['avatar'] = $fileName;
             $user->avatar = $data['avatar'];
             $user->save();
         }

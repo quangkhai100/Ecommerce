@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\History;
+use App\Models\History;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Products;
+use App\Models\Products;
 use Auth;
 use Mail;
 class CartController extends Controller

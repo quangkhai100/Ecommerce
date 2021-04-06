@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Products;
-use App\Brand;
-use App\Category;
-use Carbon\Carbon;
+use App\Models\Products;
+use App\Models\Brand;
+use App\Models\Category;
+
 class HomeController extends Controller
 {
 

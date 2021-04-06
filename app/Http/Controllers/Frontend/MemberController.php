@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateProfileRequest;
-Use App\User;
+Use App\Models\User;
 use Auth;
-Use App\Countries;
+Use App\Models\Country;
 use App\Http\Requests\MemberLoginRequest;
 
 class MemberController extends Controller
@@ -20,19 +20,14 @@ class MemberController extends Controller
      */
     public function indexRegister()
     {
-      
-        $countries = countries::all()->toArray();
+        $countries = Country::all()->toArray();
+
         return view('frontend/pages/register',compact('countries'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(RegisterRequest $request)
     {
-        $countries = countries::all()->toArray();
+        $countries = Country::all()->toArray();
         $data = $request->all();
         $file = $request->avatar;
         //check avatar
@@ -45,16 +40,17 @@ class MemberController extends Controller
         $members->email = $data['email'];
         $members->password = $data['password'];
         $members->phone = $data['phone'];
+
         if(!empty($file)){
             $file->move('avatar/img',$file->getClientOriginalName());
             $data['avatar']=$file->getClientOriginalName();
             $members->avatar = $data['avatar'];
         }
+
         $members->level = $data['level'];
         $members->id_country = $data['countries'];
         $members->save();
         return view('frontend/pages/register', compact('countries'));
-        // return redirect()->view('frontend/pages/register', compact('countries'));
     }
 
     public function indexlogin(){
@@ -116,7 +112,7 @@ class MemberController extends Controller
      */
     public function edit($id)
     {
-        $countries = countries::all()->toArray();
+        $countries = Country::all()->toArray();
         return view("frontend/pages/account",compact('countries'));
     }
 

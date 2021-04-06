@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 Auth::routes();
 
@@ -15,15 +16,14 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
 Route::post('/login', [LoginController::class, 'login']);
 
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+
+Route::post('/register', [RegisterController::class, 'register']);
 
 Route::group(['middleware' => ['auth']
 ],function () { 
 
-Route::get('/register', [LoginController::class, 'showRegistrationForm'])->name('register');
-
-Route::post('/register', [LoginController::class, 'register']);
-
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get ('/dashboard',[DashboardController::class, 'index'])->name('dashboard.index');
 
