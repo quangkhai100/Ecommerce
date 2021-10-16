@@ -10,4 +10,7 @@
 /******/ 	"use strict";
 /******/ })()
 ;
-// day la chinh sua tu nhanh dev version1
+// day la chinh sua tu nhanh dev version12
+// day la chinh sua tu nhanh final test
+//hello
+//khai
